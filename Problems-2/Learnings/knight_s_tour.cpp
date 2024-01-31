@@ -61,9 +61,11 @@ void func(vector<vector<int> > &board, int i, int j , int n, int count){
     board[i][j] = -1;
 }
 int main(){
-    int n; cin>>n;
-    vector<vector<int> > board (n, vector<int> (n,-1));
-    int count = 0;
-    func(board,0,0,n,count);
+    // int n; cin>>n;
+    // vector<vector<int> > board (n, vector<int> (n,-1));
+    // int count = 0;
+    // func(board,0,0,n,count);
+    int x = ~(-10);
+    cout<<x<<endl;
     return 0;
 }
