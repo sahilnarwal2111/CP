@@ -3,17 +3,7 @@
 int main()
 {
     
-    int i;
-    // fore(i,10){
-    //     printf("%d - ",10);
-    // }
-    int a;
-    char c;
-    // scanf("%d ", &a);
-    // scanf("%c ", &c);
-    // printf("%d", a);
-    // printf("%c", c);
-    printf("%d", ~4);
+    printf("Carriage return: Before\rAfter\n");
     return 0;
 }
 
