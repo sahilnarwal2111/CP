@@ -78,12 +78,58 @@ void solve(){
     
 
 }
+bool valid(vector<int> & arr){
+        if(arr[1]-arr[0] > 0){
+            for(int i = 1 ; i + 1 < arr.size(); i = i + 2){
+                if(arr[i] > arr[i-1] && arr[i] > arr[i+1]){
+                    continue;
+                }
+                else{
+                    return false;
+                }
+            }
+            if(arr.size()&1){
+                // continue;
+            }else{
+                if(arr[arr.size()-1] <= arr[arr.size()-2]){
+                    return false;
+                }
+            }
+            return 1;
+        }
+        else if(arr[0] > arr[1]){
+            for(int i = 1; i +1 < arr.size() ; i = i + 2){
+                if(arr[i] < arr[i-1] && arr[i] < arr[i+1]){
+                    continue;
+                }
+                else{
+                    return false;
+                }
+            }
+            if(arr.size()&1){
+                
+            }
+            else{
+                if(arr[arr.size()-1] < arr[arr.size()-2]){
+                    return false;
+                }
+            }
+            return true;
+        }
+        else return false;
+        return false;
+    }
+
+
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    int t; cin>>t;
-    while(t--){
-        solve();
-    }
-    return 0;
+    // vector<int> arr =  {1,17,5,10,13,15,10,5,16,8};
+    vector<int> arr =  {3,2,5};
+    // vector<int> arr =  {1,2,3,4,5,6,7,8,9};
+    // vector<int> arr =  {1,7,4,9,2,5};
+    cout<<valid(arr)<<endl;
+    for(auto & i : arr) cout<<i<<" ";
+    cout<<endl;
+
 }
 
