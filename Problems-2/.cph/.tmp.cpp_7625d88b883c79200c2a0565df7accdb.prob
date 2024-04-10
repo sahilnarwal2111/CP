@@ -1,0 +1,1 @@
+{"name":"Local: tmp","url":"/Users/sahilnarwal/Documents/CP/Problems-2/tmp.cpp","tests":[{"id":1709305937055,"input":"3\n3\n4\n7","output":"1\n1 2 3\n1\n1 3 4\n3\n3 5 7\n5 6 7\n2 3 4"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/Users/sahilnarwal/Documents/CP/Problems-2/tmp.cpp","group":"local","local":true}
