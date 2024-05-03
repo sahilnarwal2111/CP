@@ -13,52 +13,36 @@
 #include <numeric>
 #include <climits>
 #define mod (ll)(1e9+7)
-#define int long long
+// #define int long long
 #define ll long long
 #define endl '\n'
 using namespace std;
 
 void solve() {   
-    int n; cin>>n;
-    int arr[n]; for(int i =0 ; i < n ; i++) cin>>arr[i];
-    int minSoFar = INT_MAX;
-    int minEndingHere = 0;
-    int start =0, end = 0, s =0;
+    int n, k;
+    cin>>n>>k;
+    string str; cin>>str;
+    int f[26];
+    for(int i = 0 ; i < 26 ; i++) f[i]  = 0;
     for(int i = 0 ; i < n ; i++){
-        minEndingHere += arr[i];
-        // minSoFar = min(minSoFar, minEndingHere);
-        if(minSoFar > minEndingHere){
-            minSoFar = minEndingHere;
-            start = s;
-            end = i;
-        }
-        if(minEndingHere > 0){
-            minEndingHere = 0;
-            s = i + 1;
-        }
+        int idx = str[i] - 'a';
+        f[idx]++;
     }
-    int total = 0;
-    for(int i = 0 ; i < n ; i++) total += arr[i];
-    if(n == 2){
-        cout<<abs(total)<<endl;
+    int odd = 0;
+    int even = 0;
+    for(int i = 0 ; i < 26 ; i++){
+        if(f[i] & 1) odd++;
+        else even++;
+    }
+    if(odd == 1) {
+        cout<<"YES"<<endl;
+        return ;
+    }
+    if(odd - 1 > k ){
+        cout<<"NO"<<endl;
         return;
     }
-    if(start != end){
-        int sum = 0;
-        for(int i = start ; i <= end; i++){
-            sum +=arr[i];
-        }
-        sum = sum * 2;
-        sum *= -1;
-        total = total + sum;
-        cout<<total<<endl;
-        return;
-    }
-    else{
-        // cout<<abs(total)<<endl;
-        
-
-    }
+    cout<<"YES"<<endl;
 
 }
 signed main(){
@@ -69,3 +53,115 @@ signed main(){
     }
     return 0;
 }
+
+
+    // int v1, v2;
+    // int ans = 0;
+    // // up a //left b
+    // v1 = y1 + a;
+    // v2 = x1 - b;
+    // //check
+    //     cout<<v1<<" "<<v2<<endl;
+    // if(v2 - b == x2 && v1 - a == y2) {
+    //     ans++;
+    // }
+
+    // //up a // right b
+    // v1 = y1 + a;
+    // v2 = x1 + b;
+    //     cout<<v1<<" "<<v2<<endl;
+    // if(v2 + b == x2 && v1 - a == y2) {
+    //     ans++;
+    // }
+
+    // // left a // up b
+    // v1 = y1 + b;
+    // v2 = x1 + a;
+    //     cout<<v1<<" "<<v2<<endl;
+    // if(v1 + b == y2 && v2 - a == x2) {
+    //     ans++;
+    // }
+
+    // //left a // down b
+    // v1 = y1 - b;
+    // v2 = x1 + a;
+    //     cout<<v1<<" "<<v2<<endl;
+    // if(v1 - b == y2 && v2 - a == x2) {
+    //     ans++;
+    // }
+
+    // // down a right b
+    // v1 = y1 - a;
+    // v2 = x1 + b;
+    //     cout<<v1<<" "<<v2<<endl;
+    // if(v2 + b == x2 && v1 +a == y2) {
+    //     ans++;
+    // }
+
+    // //down a left b
+    // v1 = y1 - a;
+    // v2 = x1 - b;
+    //     cout<<v1<<" "<<v2<<endl;
+    // if(v2 - b == x2 && v1 + a == y2) {
+    //     ans++;
+    // }
+
+    // //left a down b
+    // v1 = y1 - b;
+    // v2 = x1 - a;
+    //     cout<<v1<<" "<<v2<<endl;
+    // if(v1 - b == y2 && v2 + a == x2) {
+    //     ans++;
+    // }
+
+    // //left a up b
+    // v1 = y1 + b;
+    // v2 = x1 - a;
+    //     cout<<v1<<" "<<v2<<endl;
+    // if(v1 + b == y2 && v2 + a == x2) {
+    //     ans++;
+    // }
+
+
+    // //     // up a //left b
+    // // v1 = y1 + b;
+    // // v2 = x1 - a;
+    // // //check
+    // // if(v2 - a == x2 && v1 - b == y2) ans++;
+
+    // // //up a // right b
+    // // v1 = y1 + b;
+    // // v2 = x1 + a;
+    // // if(v2 + a == x2 && v1 - b == y2) ans++;
+
+    // // // left a // up b
+    // // v1 = y1 + a;
+    // // v2 = x1 + b;
+    // // if(v1 + a == y2 && v2 - b == x2) ans++;
+
+    // // //left a // down b
+    // // v1 = y1 - a;
+    // // v2 = x1 + b;
+    // // if(v1 - a == y2 && v2 - b == x2) ans++;
+
+    // // // down a right b
+    // // v1 = y1 - b;
+    // // v2 = x1 + a;
+    // // if(v2 + a == x2 && v1 +b == y2) ans++;
+
+    // // //down a left b
+    // // v1 = y1 - b;
+    // // v2 = x1 - a;
+    // // if(v2 - a == x2 && v1 + b == y2) ans++;
+
+    // // //left a down b
+    // // v1 = y1 - a;
+    // // v2 = x1 - b;
+    // // if(v1 - a == y2 && v2 + b == x2) ans++;
+
+    // // //left a up b
+    // // v1 = y1 + a;
+    // // v2 = x1 - b;
+    // // if(v1 + a == y2 && v2 + b == x2) ans++;
+
+    // cout<<ans<<endl;
