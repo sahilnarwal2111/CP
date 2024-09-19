@@ -1,3 +1,3 @@
-for(auto &i : arr){
-        cout << i.first << " " << i.second << endl;
-    }
+int tt ;
+    cin >> tt;
+    while

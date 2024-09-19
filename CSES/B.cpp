@@ -1,4 +1,5 @@
 #include<iostream>
+#include <numeric>
 #include<vector>
 #include<string>
 #include<algorithm>
@@ -10,61 +11,84 @@
 #include <unordered_map>
 #include <stack>
 #include <cstdlib>
+#include <numeric>
+#include <climits>
 #define mod (ll)(1e9+7)
+#define int long long
 #define ll long long
+#define endl '\n'
 using namespace std;
+//---------------Code-----------------------//
 
-bool chk(int x, vector<int> & arr){
-    if(arr.back() < x) return false;
-    int n = arr.size();
-    vector<int> tmp (n, 0);
-
-    for(int i = n - 1 ; i >= 2 ; i--){
-        if(arr[i] + tmp[i] < x) 
-            return false;
-        
-        int d = min(arr[i], arr[i] + tmp[i] - x);
-
-        tmp[i-1] += d / 3;
-        tmp[i-2] += (2 * (d / 3));
-
-    }
-
-    if(arr[0] + tmp[0] >= x && arr[1] + tmp[1] >= x) return true;
-    return false;
-    
-}
 
 
 void solve(){
-    int n; 
-    cin >> n;
-    vector<int> arr(n);
+    int n, m, q;
+    cin >> n >> m >> q;
+    vector<int> arr(m);
+    vector<pair<int,int>> que(q);
     for(auto &i : arr)
         cin >> i;
-    
-    int l = 0, h = 1e9;
-    int mid, ans;
-    while(l <= h){
-        mid = (l + h) / 2;
-        if(chk(mid, arr) == 1){
-            // cout << mid << endl;
-            ans = mid;
-            l = mid + 1;
-        }else{
-            h = mid - 1;
-        }
+    for(int i = 0 ; i < q; i++){
+        cin >> que[i].first;
+        que[i].second = i;
     }
+    sort(arr.begin(), arr.end());
+    sort(que.begin(), que.end());
 
-    cout << ans << endl;
-    // cout << chk(8, arr);
+    int k = 0;
+    vector<int> ans(q, -1);
+    for(auto &p : que){
+        int d = p.first;
+        if(d > arr[m-1] || d < arr[0]){
+            if(d > arr[m-1]){
+                // cout << n - arr[m-1] << endl;
+                ans[p.second] =  n - arr[m-1];
+
+            }else{
+                // cout << arr[0] - 1 << endl;
+                ans[p.second] = arr[0] - 1;
+            }
+
+            continue;;
+        }
+        // need to find interval in which d lies
+        while(k < m && arr[k] < d){
+            k++;
+        }
+
+        int low = arr[k-1];
+        int high = arr[k];
+        int mid = (low + high) / 2;
+        int diff = abs(d - mid);
+        int x = min(d - low, high - d);
+
+        if(d > mid && (low + high) % 2 == 1){
+            x--;
+        }
+        ans[p.second] = diff + x;
+        // cout << diff + x << endl;
+    }
+    for(auto &i : ans)
+        cout << i << endl;
+    
+
+
 }
+
+
 
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    int tt;
-    cin >> tt;
-    while(tt--)
+    // #ifndef ONLINE_JUDGE 
+    // freopen("input.txt", "r", stdin); 
+    // freopen("output.txt", "w", stdout); 
+    // #endif
+
+    int t;
+    cin >> t;
+    
+    while(t--)
         solve();
     return 0;
 }
