@@ -14,70 +14,36 @@
 // #define ll long long
 #define int long long
 using namespace std;
-
-int binaryExpo(int x, int n, int mod){
-    int ans = 1;
-    while(n > 0){
-        if(n & 1){
-            ans = (ans * x) % mod;
-        }
-        x = (x * x) % mod;
-        n >>= 1;
-    }
-    return ans % mod;
-}
-
-int ncr(int n, int r, int mod, vector<int> &fact, vector<int> & ifact){
-    return (((fact[n] * ifact[n-r]) % mod) * ifact[r]) % mod;
-}
-
+ 
 void solve(){
-    string str;
-    cin >> str;
-    int n = str.size(); 
-    int mod = 1e9 + 7;
-    vector<int> fact(n + 1, 1);
-    vector<int> ifact(n + 1, 1);
-    for(int i = 1 ; i <= n ; i++) 
-        fact[i] = (fact[i-1] * i) % mod;
-    
-    ifact[n] = binaryExpo(fact[n], mod - 2, mod);
-
-    for(int i = n - 1; i >= 0; i--){
-        ifact[i] = ((i + 1) * ifact[i + 1]) % mod;
-    }
-    
-    string s = "";
-    for(auto &ch : str){
-        if(ch == 'a'){
-            s += ch;
-        }else if(ch == 'b'){
-            s += ch;
+    int n, rD;
+    cin >> n >> rD;
+    vector<int> arr(n);
+    for(auto &i : arr)
+        cin >> i;
+    int cnt = 0;
+    int l = 0, r = 0;
+    for(r = 0; r < n ; r++){
+        while(arr[r] - arr[l] > rD){
+            cnt += (n - r);
+            l++;
+        }
+    }   
+    r = n - 1;
+    while(l < r){
+        if(arr[r] - arr[l] > rD){
+            cnt += 1;
+            l++;
+        }else{
+            break;
         }
     }
-    int totalA = 0;
-    int cur = 0;
-    int ans = 1;
-    for(auto &ch : s){
-        if(ch == 'a'){
-            cur++;
-        }else if(ch == 'b'){
-            if(cur == 0) 
-                continue;
-            
-            cur++;
-            ans = (ans * cur) % mod;
-            cur = 0;
-        }
-    }
-    // totalA += cur;
-    ans = (ans * (cur + 1)) % mod;
-    cout << ans - 1 << endl;
-
+    cout << cnt << endl;    
+    
 }
-
+ // 0 1 2 3 4 5
 signed main(){
-    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);    
     // int tt;
     // cin >> tt;
     // while(tt--)
