@@ -16,37 +16,40 @@
 using namespace std;
  
 void solve(){
-    int n, rD;
-    cin >> n >> rD;
+    int n, m;
+    cin >> n >> m;
     vector<int> arr(n);
     for(auto &i : arr)
         cin >> i;
-    int cnt = 0;
+    map<int, int> mp;
+    for(auto &i : arr)
+        mp[i]++;
+    sort(arr.begin(), arr.end());
+    auto it = unique(arr.begin(), arr.end());
+    arr.erase(it, arr.end());
+    for(auto &i : arr)
+        cout << i << " ";
+    cout << endl;
+    int ans = 0;
     int l = 0, r = 0;
     for(r = 0; r < n ; r++){
-        while(arr[r] - arr[l] > rD){
-            cnt += (n - r);
-            l++;
-        }
-    }   
-    r = n - 1;
-    while(l < r){
-        if(arr[r] - arr[l] > rD){
-            cnt += 1;
-            l++;
-        }else{
-            break;
+        if(r - l + 1 == m){
+            if(arr[r] - arr[l] < m){
+                int cur = 1;
+                for(int i = l ; i <= r; i++){
+                    cur *= mp[arr[i]];
+                }
+                ans += cur;
+            }
         }
     }
-    cout << cnt << endl;    
-    
+    cout << ans << endl;
 }
- // 0 1 2 3 4 5
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);    
-    // int tt;
-    // cin >> tt;
-    // while(tt--)
+    int tt;
+    cin >> tt;
+    while(tt--)
         solve();
     return 0;
 }

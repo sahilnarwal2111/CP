@@ -60,19 +60,6 @@
         "variant": "cpp",
         "algorithm": "cpp",
         "iomanip": "cpp",
-        "unordered_set": "cpp",
-        "stacktrace": "cpp",
-        "execution": "cpp",
-        "bit": "cpp",
-        "*.tcc": "cpp",
-        "compare": "cpp",
-        "concepts": "cpp",
-        "functional": "cpp",
-        "iterator": "cpp",
-        "memory": "cpp",
-        "memory_resource": "cpp",
-        "random": "cpp",
-        "type_traits": "cpp",
-        "utility": "cpp"
+        "unordered_set": "cpp"
     }
 }

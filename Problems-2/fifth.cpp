@@ -18,47 +18,56 @@
 #define endl '\n'
 using namespace std;
 
-bool perfectSquare(int n){
-    int low = 0, high = n;
-    int mid;
-    while (low <= high){
-        mid = (low + high)/2;
-        if(mid * mid == n) return 1;
-        if(mid * mid > n){
-            high = mid - 1;
-        }else{
-            low = mid + 1;
+void solve() {   
+    int n; cin>>n;
+    int arr[n]; for(int i =0 ; i < n ; i++) cin>>arr[i];
+    if(n == 1) {
+        cout<<0<<endl;
+        return;
+    }
+    int maxi = arr[n-1] - arr[0];
+    for(int i = 1 ; i < n; i++){
+        maxi = max(maxi, arr[i] - arr[i-1]);
+    }
+    //second case minimuma at first and as it at last
+    int mini = INT_MAX;
+    int iMini = -1;
+    for(int i = 0 ; i < n ; i++){
+        if(mini > arr[i]){
+            mini = arr[i];
+            iMini = i;
         }
     }
-    return 0;
-}
-
-void solve(){
-    int n;
-    cin >> n;
-    int cnt = 0;
-    for(int i = 2; i <= n ; i++){
-        int c = i;
-        int b = i - 1;
-        int cSq = i * i;
-        int bSq = b * b;
-        int aSq = cSq - bSq;
-        
-        if(perfectSquare(aSq)){
-        cout<< aSq << " " << bSq << " " << cSq << endl;
-            cnt++;
+    if(iMini != n - 1){
+        maxi = max(arr[n-1] - mini, maxi);
+    }
+    //third case maximum at last and first as it as
+    int maximum = INT_MIN;
+    int iMax = -1;
+    for(int i = 0 ; i < n ; i++){
+        if(maximum < arr[i]){
+            maximum = arr[i];
+            iMax = i;
         }
     }
-    
-    cout << cnt << endl;
+    if(iMax != 0){
+        maxi = max(maximum - arr[0], maxi);
+    }
+    // if(iMax == 0 && iMini == n-1){
+    //     maxi = max(arr[0]-arr[1], maxi);
+    //     maxi = max(arr[n-2] - arr[n-1], maxi);
+    // }
+    cout<<maxi<<endl;
 }
- 
-
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    int t;
-    cin >> t;
-    while(t--)
+    int t; cin>>t;
+    while(t--){
         solve();
+    }
     return 0;
 }
+
+/*
+5 -1 5 -13
+*/

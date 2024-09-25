@@ -18,7 +18,11 @@
 #define endl '\n'
 using namespace std;
 <<<<<<< HEAD
+<<<<<<< HEAD
 /// cd "/Users/sahilnarwal/Documents/CP/Problems-2/" && g++ --std=c++20 dijsktra.cpp -o dijsktra && "/Users/sahilnarwal/Documents/CP/Problems-2/"dijsktra
+=======
+
+>>>>>>> parent of ef77915 (CP)
 vector<int> factors(int n){
     vector<int> ans;
     ans.push_back(1);
@@ -58,6 +62,10 @@ void solve() {
     }
     cout<<"YES"<<endl;
 
+
+
+
+
 >>>>>>> parent of 9ac6304 (day - 3)
 }
 
@@ -85,59 +93,45 @@ int gcd(int a, int b){
     return ans;
 }
 
-
-bool func(int x, vector<int>& cities, vector<int> & towers){
-    // thinking of a two pointer approach
-    
-    int n = cities.size(), m = towers.size();
-    
-    int i = 0, j = 0;   
-    while(i < n && j < m){
-        int mini = towers[j] - x;
-        int maxi = towers[j] + x;
-        while(cities[i] >= mini && cities[i] <= maxi && i < n){
-            i++;
-        }
-        j++;
+void solve() {   
+    int n, q; cin>>n>>q;
+    int arr[n];
+    for(int i = 0 ; i < n ; i++) cin>>arr[i];
+    int sum = 0;
+    int pre[n];
+    pre[0] = arr[0];
+    for(int i = 1 ; i < n ; i++){
+        pre[i] = pre[i-1] + arr[i];
     }
-    return i >= n;
+    for(int i = 0 ; i < n ; i++) sum += arr[i];
+    while(q--){
+        int l, r, k ; 
+        cin>>l>>r>>k;
+        int tmp = k * (r - l + 1);
+        int s = 0;
+        if(l == 1){
+            s = pre[r-1];
+        }
+        else{
+            s = pre[r-1] - pre[l-2];
+        }
+        int v1 = sum - s;
+        int v2 = tmp;
+        int f = v1 + v2;
+        if(f & 1) cout<<"YES"<<endl;
+        else cout<<"NO"<<endl;
+    }
     
 }
-void solve(){
-    int n, m ;
-    cin >> n >> m;
-    vector<int> arr1(n), arr2(m);
-    for(auto &i : arr1)
-        cin >> i;
-    for(auto &i : arr2)
-        cin >> i;
-    int low = 0, high = 1e18;
-    int mid, ans;
-    sort(arr1.begin(), arr1.end());
-    sort(arr2.begin(), arr2.end());
-    while(low <= high){
-        mid = (low + high)/2;
-        if(func(mid ,arr1, arr2)){
-            ans = mid;
-            high = mid - 1;
-        }else{
-            low = mid + 1;
-        }
-    }
-    cout << ans << '\n';
-}
-
-
-
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    // int t; cin>>t;
-    // while(t--){
+    int t; cin>>t;
+    while(t--){
         solve();
-    // }
-    
+    }
     return 0;
 }
+<<<<<<< HEAD
 
 
 <<<<<<< HEAD
@@ -254,3 +248,5 @@ signed main(){
 
     // cout<<ans<<endl;
 >>>>>>> parent of 9ac6304 (day - 3)
+=======
+>>>>>>> parent of ef77915 (CP)
