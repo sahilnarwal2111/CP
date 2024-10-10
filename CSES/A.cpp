@@ -14,37 +14,48 @@
 // #define ll long long
 #define int long long
 using namespace std;
- 
+
+
+
 void solve(){
-    int n, m;
-    cin >> n >> m;
-    vector<int> arr(n);
-    for(auto &i : arr)
-        cin >> i;
-    map<int, int> mp;
-    for(auto &i : arr)
-        mp[i]++;
-    sort(arr.begin(), arr.end());
-    auto it = unique(arr.begin(), arr.end());
-    arr.erase(it, arr.end());
-    for(auto &i : arr)
-        cout << i << " ";
-    cout << endl;
-    int ans = 0;
-    int l = 0, r = 0;
-    for(r = 0; r < n ; r++){
-        if(r - l + 1 == m){
-            if(arr[r] - arr[l] < m){
-                int cur = 1;
-                for(int i = l ; i <= r; i++){
-                    cur *= mp[arr[i]];
-                }
-                ans += cur;
-            }
+    int n, k;
+    cin >> n >> k;
+    string str;
+    cin >> str;
+
+    if(k >= 25){
+        for(int i = 0; i < n ; i++)
+            cout << 'a';
+        cout << '\n';
+        return;
+    }
+    int maxTillGreaterThanEqualToK = 0;
+    int firstGreaterThanK = -1;
+    for(int i = 0 ; i < n ; i++){
+        if(str[i] - 'a' > k){
+            firstGreaterThanK = i;
+            break;
+        }else{
+            maxTillGreaterThanEqualToK = max(maxTillGreaterThanEqualToK, (int)(str[i] - 'a'));
         }
     }
-    cout << ans << endl;
-}
+    k = k - maxTillGreaterThanEqualToK;
+    int ref = str[firstGreaterThanK] - 'a' - k;
+    int tmp = str[firstGreaterThanK] - 'a';
+    for(int i = 0 ; i < n ; i++){
+        int idx = str[i] - 'a';
+        if(idx == 0)
+            continue;
+        if(idx <= maxTillGreaterThanEqualToK){
+            str[i] = 'a';
+        }else if(idx >= ref && idx <= tmp){
+            str[i] = (char) ref + 'a' ;
+        }
+    }
+    
+    cout << str << '\n';
+    
+}    
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);    
     int tt;
