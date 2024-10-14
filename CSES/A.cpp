@@ -16,49 +16,52 @@
 using namespace std;
 
 void solve(){
-    int n, c, d;
-    cin >> n >> c >> d;
-    // c -> cost of removing
-    // d -> cost of insertion
-    vector<int> arr(n);
-    for(auto &i : arr)
-        cin >> i;
-    sort(arr.begin(), arr.end());
-    vector<int> brr;
-    int costOfInsertions = 0;
-    if(arr[0] != 1){
-        brr.push_back(1);
-        costOfInsertions += d;
-    }
-    brr.push_back(arr[0]);
-    for(auto &i : arr)
-        if(brr.back() != i)
-            brr.push_back(i);
-    int duplicates = arr.size() - brr.size();
-    if(arr[0] != 1){
-        duplicates++;
-    }
-    int ans = LLONG_MAX;
-    int N = brr.size();
-    for(int i = 1; i < N ; i++){
-        // we consider to remove all brr starting from index i 
-        int elementsToBeRemoved = N - i;
-        // total cost = cost of inserting till now and removing the elment left right of i
-        int cost = elementsToBeRemoved * c + costOfInsertions;
-        ans = min(ans, cost);
-        // we consider to add all the missing numbers
-        int missing = brr[i] - brr[i-1] - 1;
-        costOfInsertions += (missing * d);
+    int q;
+    cin >> q;
+    int f1 = 1, f2 = 1;
+    bool tContainsB = false;
+    bool sContainsB = false;
+    while(q--){
+        int d, k;
+        cin >> d >> k;
+        string x; 
+        cin >> x;
+        if(d == 1){
+            for(auto &ch : x){
+                int idx = ch - 'a';
+                if(idx > 0){
+                    sContainsB = true;
+                }
+                if(idx == 0)
+                    f1 += k;
+            }
+        }else{
+            for(auto &ch : x){
+                int idx = ch - 'a';
+                if(idx > 0){
+                    tContainsB = true;
+                }
+                if(idx == 0)
+                    f2 += k;
+            }
+        }
+        if(tContainsB){
+            cout << "YES" << '\n';
+        }else{
+            if(sContainsB){
+                cout << "NO" << '\n';
 
+            }else{
+                if(f2 > f1){
+                    cout << "YES" << '\n';
+                }else{
+                    cout << "NO" << '\n';
+                }
+            }
+            
+        }
+        
     }
-    // we reached the end of array and if we want to keep all the numbers and dont wanna to remove any one
-    ans = min(ans, costOfInsertions);
-    
-    
-    // also have a look at the case of size equals to largest element
-    
-    //duplicates removel cost need to be added in last
-    cout << ans + duplicates * c << '\n';
 }    
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);    
