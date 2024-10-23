@@ -4,7 +4,7 @@
 
 void generateRandomArray(int arr[], int n) {
     for (int i = 0; i < n; ++i) {
-        arr[i] = rand() % 10 + 1; // Generates a random number between 1 and 10
+        arr[i] = rand() % 10000 + 1; // Generates a random number between 1 and 10
     }
 }
 
@@ -30,11 +30,11 @@ int main() {
     std::cout << std::endl;
 
     // Print the second array
-    std::cout << "Array 2: ";
-    for (int i = 0; i < n; ++i) {
-        std::cout << arr2[i] << " ";
-    }
-    std::cout << std::endl;
+    // std::cout << "Array 2: ";
+    // for (int i = 0; i < n; ++i) {
+    //     std::cout << arr2[i] << " ";
+    // }
+    // std::cout << std::endl;
 
     return 0;
 }
