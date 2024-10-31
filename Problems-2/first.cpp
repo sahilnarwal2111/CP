@@ -12,47 +12,58 @@
 #include <stack>
 #include <numeric>
 #include <cstdlib>
+#include <sstream>
 #define int long long
 using namespace std;
+typedef vector<int> vi;
+typedef vector<pair<int, int> > vp;
+// #define "\n" endl;
 
 void solve(){
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    for(auto &i: arr)   
-        cin >> i;
-    int mp[1000001] = {0};
-    int ans = 1;
-    for(auto &i : arr){
-        int num = i;
-        for(int j = 1 ; j * j <= num; j++){
-            if(num % j == 0){
-                int f1 = j;
-                int f2 = num / j;
-                mp[f1]++;
-                if(f1 != f2){
-                    mp[f2]++;
-                }
-                if(mp[f1] >= 2){
-                    ans = max(ans, f1);
-                }
-                if(mp[f2] >= 2){
-                    ans = max(ans, f2);
-                }
-            }
+    int n, m;
+    cin >> n >> m;
+    vector<int> arr(m);
+    for(auto &i : arr) cin >> i;
+    vector<int> values(m);
+    sort(arr.begin(), arr.end());
+    for(int i = 0; i < m; i++){
+        int x = arr[i];
+        int y;
+        if(i != m - 1){
+            y = arr[i+1];
+        }else y = arr[0];
+
+        if(y > x){
+            values[i] = y - x - 1;
+        }else{
+            values[i] = n - x + y - 1;
         }
     }
+    sort(values.begin(), values.end());
+    reverse(values.begin(), values.end());
     
-    
-    cout << ans << '\n';
+    int healthy = 0;
+    int day = 0;
+    for(int i = 0 ; i < m ; i++){
+        values[i] -=  2 * day;
+        if(values[i] > 0){
+            if(values[i] == 1){
+                healthy += 1;
+                day++;
+            }else{
+                healthy += (values[i] - 1);
+                day += 2;
+            }
+
+        }
+    }
+    cout << n - healthy << endl;
 }
-
-
 signed main(){
-    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    // int tt;
-    // cin >> tt;
-    // while(tt--)
+    int tt;
+    cin >> tt;
+    while(tt--)
         solve();
+    
     return 0;
 }

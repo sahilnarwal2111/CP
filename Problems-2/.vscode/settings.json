@@ -61,5 +61,7 @@
         "algorithm": "cpp",
         "iomanip": "cpp",
         "unordered_set": "cpp"
-    }
+    },
+    "cph.language.cpp.compiler": "g++",
+    "cph.language.cpp.compilerArgs": ["-std=c++11"]
 }
