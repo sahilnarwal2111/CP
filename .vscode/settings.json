@@ -68,6 +68,19 @@
         "type_traits": "cpp",
         "utility": "cpp",
         "format": "cpp",
-        "thread": "cpp"
+        "thread": "cpp",
+        "cstdarg": "cpp",
+        "execution": "cpp",
+        "ratio": "cpp",
+        "sstream": "cpp",
+        "forward_list": "cpp",
+        "text_encoding": "cpp",
+        "list": "cpp",
+        "regex": "cpp",
+        "valarray": "cpp",
+        "ranges": "cpp",
+        "stacktrace": "cpp",
+        "chrono": "cpp",
+        "generator": "cpp"
     }
 }

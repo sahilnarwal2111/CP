@@ -1,3 +1,2 @@
-int tt;
-    // cin >> tt;
-    // whil
+string str;
+    cin >> str;

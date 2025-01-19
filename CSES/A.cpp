@@ -16,82 +16,54 @@
 #define int long long
 using namespace std;
 void solve(){
-    string str;
-    cin >> str;
-    int k;
-    cin >> k;
-    vector<queue<int> > pos(10, queue<int> ());
-    int ansSize = str.size() - k;
-    string ans = "";
-    for(int i = 0; i < str.size() ; i++){
-        pos[str[i]- '0'].push(i);
-    }
+    int n, q;
+    cin >> n >> q;
+    vector<int> arr(n);
+    for(auto &i : arr) cin >> i;
+    int allValues = -1;
+    int sum = 0;
+    for(auto &i : arr) sum += i;
+    map<int,int> mp;
+    while(q--){
+        int t;
+        cin >> t;
+        if(t == 1){
+            int i ;
+            cin >> i;
+            int newValue;
+            cin >> newValue;
 
-    int prev = -1;
-    int lastContinue = -1;
-    while(ans.size() < ansSize){
-        int start = (prev == -1) ? 0 : prev + 1;
-        int end = str.size() - (ansSize - ans.size()) ;
-       
-        int curIdx = -1;
-        int minCharacter = 10;
-        for(int i = 0; i < 10 ; i++){
-            if(i == 0 && ans.size() == 0){
-                continue;
-            }
-            if(!pos[i].empty() && pos[i].front() >= start && pos[i].front() <= end){
-                int curChar = str[pos[i].front()] - '0';
-                if(curChar <= minCharacter){
-                    minCharacter = curChar;
-                    curIdx = pos[i].front();
-                }
-            }
-        }
-        if(curIdx != -1){
-            if(prev == -1) prev++;
-            int diff = 0;
-            if(prev == 0){
-                diff = curIdx - prev;
+            if(allValues == -1){
+                sum -= arr[i-1];
+                sum += newValue;
             }else{
-                diff = curIdx - prev - 1;
+                if(mp.count(i-1)){
+                    sum -= mp[i-1];
+                }else{
+                    sum -= allValues;
+                }
+                sum += newValue;
             }
-            
-            if(curIdx == 0) diff = 1;
-            k = k - diff;
-            
-            if(curIdx != 0)
-                ans += (str[curIdx]);
-            if(k == 0){
-                lastContinue = curIdx;
-                break;
-            }
-        }else {
-            lastContinue = curIdx;
-            break;
-        }
-        //strike off the value in between [prev, curIdx]
-        for(int i = 0; i < 10 ;i++){
-            while(!pos[i].empty() && pos[i].front() <= curIdx){
-                pos[i].pop();
-            }
-        }
+            arr[i-1] = newValue;
+            mp[i-1] = newValue;
+            cout << sum << endl;
 
-        prev = curIdx;
+        }else{
+            int newValue;
+            cin >> newValue;
+            mp.clear();
+            allValues = newValue;
+            sum = allValues * n;
+            cout << sum << endl;
 
-    }
-    if(lastContinue != -1){
-        lastContinue++;
-        for(int i = lastContinue; i < str.size() ; i++){
-            ans += str[i];
         }
     }
-    cout << ans << endl;
 }    
 signed main(){
     ios::sync_with_stdio(0); cin.tie(0); std::cout.tie(0);    
-    int tt;
-    cin >> tt;
-    while(tt--)
+    // int tt;
+    // cin >> tt;
+    // while(tt--)
         solve();
     return 0;
 }

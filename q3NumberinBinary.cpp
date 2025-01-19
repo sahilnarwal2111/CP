@@ -1,6 +1,5 @@
 //Print a number in binary recursively
 #include<iostream>
-#include <string>
 #include <algorithm>
 using namespace std;
 void f(int n, string& str){
