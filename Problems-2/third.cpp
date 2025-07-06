@@ -1,77 +1,98 @@
-#include<iostream>
-#include<vector>
-#include<string>
-#include<algorithm>
-#include<cmath>
-#include<set>
-#include <map>
-#include <queue>
-#include <stack>
-#include <cstdlib>
-#define mod (ll)(1e9+7)
-#define ll long long
-#define endl '\n'
+// || =================================================================== ||
+// ||                                                                     ||
+// ||                   Reach Expert by May 2025                          ||
+// ||                                                                     ||
+// || =================================================================== ||
+#include <bits/stdc++.h>
+#define double long double
+#define endl "\n";
 #define int long long
+#define all(a) a.begin(), a.end()           
 using namespace std;
-
-void solve(){
-    int n, k; cin>>n>>k;
-    int b = k /2;
-    int f = k - b;
-    
-    int arr[n]; for(int i = 0 ; i < n ; i++ ) cin>>arr[i];
-
-    int sunk = 0;
-    int i = 0;
-    while(i < n && sunk < n){
-        if(arr[i] == f){
-            sunk++;
-            arr[i] = 0;
-            f = 0;
-            break;
-        }
-        else if(arr[i] > f){
-            arr[i] = arr[i] -f;
-            f =0 ;
-            break;
-        }
-        else{
-            f = f - arr[i];
-            arr[i] = 0;
-            sunk++;
-        }
-        i++;
-    }
-    int j = n-1;
-    while(j >=0 && sunk < n){
-        if(arr[j] == b){
-            arr[j] = 0;
-            b =0 ;
-            sunk++;
-            break;
-        }
-        else if(arr[j] > b){
-            arr[j] = arr[j] - b;
-            b =0;
-            break;
-        }
-        else{
-            b = b - arr[j];
-            arr[j] = 0;
-            sunk++;
-        }
-        j--;
-    }
-    cout<<sunk<<endl;
-        
-
-}
-
-signed main(){
-    ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
-    int t ; cin>>t;
-    while(t--){
-        solve();
-    }
+bool func(string &str){
+    for(auto &ch : str)
+        if(ch == '1') return 1;
     return 0;
+}
+void solve(){
+    int n;
+    cin >> n;
+    vector<vector<int>> arr(n);
+    for(int i = 0; i < n; i++){
+        int k;
+        cin >> k;
+        vector<int> tmp(k);
+        for(auto &j : tmp)
+            cin >> j;
+        arr[i] = tmp;
+    }
+    // sort(all(arr), [](vector<int> &v1, vector<int> &v2){
+    //     return v1[0] < v2[0];
+    // });
+    int split = 0, combine = 0;
+    // this is for internal dividing
+    // vector<int> count(n, 0);
+    // int idx =0 ;
+    // for(auto &vec : arr){
+    //     int sz  = vec.size();
+    //     int cur = 0;
+    //     for(int i = 1; i < sz; i++){
+    //         if(vec[i - 1] > vec[i]){
+    //             // we need to find index for vec[i-1] to be inserted
+    //             if(vec[i-1] > vec.back()){
+    //                 split++;
+    //                 cur++;
+    //             }else {
+    //                 split += 2;
+    //                 cur += 2;
+    //             }
+    //         }
+    //     }
+    //     // sort(all(vec));
+    //     count[idx++] = cur;
+    // }
+    // for(auto vec : arr){
+    //     for(auto i : vec)
+    //         cout << i << " ";
+    //     cout << endl;
+    // }
+    // for(auto i : count)
+    //     cout << i << " ";
+    // cout << endl;
+    // for(int i = 1; i < n; i++){
+    //     if(count[i] + 1 == arr[i].size() && arr[i].size() > 1) continue;
+    //     if(arr[i-1].back() > arr[i][0]){
+    //         split++;
+    //     }
+    // }
+    split = 0;
+    vector<pair<int,int>> vec;
+    int counter = 0;
+    for(auto v : arr)
+        for(auto i : v)
+            vec.push_back({i, counter++});
+        
+    sort(all(vec));
+    for(auto p : vec){
+        cout << p.first << " " << p.second << endl;
+    }
+    for(int i = 1; i < vec.size(); i++){
+        if(vec[i].second != vec[i-1].second + 1) {
+            split++;
+            i++;
+        }
+    }
+    cout << split << " " << n + split - 1 << endl;
+        
+}       
+signed main(){
+    #ifndef ONLINE_JUDGE 
+        freopen("input.txt", "r", stdin); 
+        freopen("sahil.txt", "w", stdout); 
+    #endif 
+    // int t;
+    // cin >> t;
+    // while(t--){
+        solve();
+    // }
 }
